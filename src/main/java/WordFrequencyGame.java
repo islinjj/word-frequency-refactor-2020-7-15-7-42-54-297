@@ -13,14 +13,7 @@ public class WordFrequencyGame {
 
         List<Input> inputList = new ArrayList<>();
 
-        Map<String, Integer> wordAndCount = new HashMap<>();
-        for (String word:words) {
-            if (wordAndCount.containsKey(word)){
-                wordAndCount.put(word,wordAndCount.get(word)+1);
-            } else {
-                wordAndCount.put(word,1);
-            }
-        }
+        getDistinctWord(words);
 
         Map<String, List<Input>> map = getListMap(inputList);
 
@@ -39,6 +32,18 @@ public class WordFrequencyGame {
             joiner.add(s);
         }
         return joiner.toString();
+    }
+
+    private Map<String, Integer> getDistinctWord(String[] words) {
+        Map<String, Integer> wordAndCount = new HashMap<>();
+        for (String word:words) {
+            if (wordAndCount.containsKey(word)){
+                wordAndCount.put(word,wordAndCount.get(word)+1);
+            } else {
+                wordAndCount.put(word,1);
+            }
+        }
+        return wordAndCount;
     }
 
     private Map<String, List<Input>> getListMap(List<Input> inputList) {
