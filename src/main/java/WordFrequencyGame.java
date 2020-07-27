@@ -8,13 +8,18 @@ import java.io.CharArrayWriter;
 import java.time.LocalDateTime;
 
 public class WordFrequencyGame {
-    public String getResult(String inputStr) {
-        String[] arr = inputStr.split("\\s+");
+    public String getResult(String sentence) {
+        String[] words = sentence.split("\\s+");
 
         List<Input> inputList = new ArrayList<>();
-        for (String s : arr) {
-            Input input = new Input(s, 1);
-            inputList.add(input);
+
+        Map<String, Integer> wordAndCount = new HashMap<>();
+        for (String word:words) {
+            if (wordAndCount.containsKey(word)){
+                wordAndCount.put(word,wordAndCount.get(word)+1);
+            } else {
+                wordAndCount.put(word,1);
+            }
         }
 
         Map<String, List<Input>> map = getListMap(inputList);
