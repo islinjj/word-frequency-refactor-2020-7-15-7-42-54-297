@@ -11,13 +11,6 @@ public class WordFrequencyGame {
 
         Map<String, Integer> wordMap = calculateFrequentWords(sentence);
 
-//        for (String s : words) {
-//            Input input = new Input(s, 1);
-//            inputList.add(input);
-//        }
-
-//        Map<String, List<Input>> map = getListMap(inputList);
-
         List<Input> list = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : wordMap.entrySet()) {
             Input input = new Input(entry.getKey(), entry.getValue());
