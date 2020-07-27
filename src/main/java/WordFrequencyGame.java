@@ -3,60 +3,53 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
-import java.io.CharArrayWriter;
-
-import java.time.LocalDateTime;
 
 public class WordFrequencyGame {
     public String getResult(String sentence) {
-        String[] words = sentence.split("\\s+");
 
         List<Input> inputList = new ArrayList<>();
 
-        getDistinctWord(words);
+        Map<String, Integer> wordMap = calculateFrequentWords(sentence);
 
-        Map<String, List<Input>> map = getListMap(inputList);
+//        for (String s : words) {
+//            Input input = new Input(s, 1);
+//            inputList.add(input);
+//        }
+
+//        Map<String, List<Input>> map = getListMap(inputList);
 
         List<Input> list = new ArrayList<>();
-        for (Map.Entry<String, List<Input>> entry : map.entrySet()) {
-            Input input = new Input(entry.getKey(), entry.getValue().size());
+        for (Map.Entry<String, Integer> entry : wordMap.entrySet()) {
+            Input input = new Input(entry.getKey(), entry.getValue());
             list.add(input);
         }
         inputList = list;
 
         inputList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
 
+        StringJoiner joiner = formatSentence(inputList);
+        return joiner.toString();
+    }
+
+    private StringJoiner formatSentence(List<Input> inputList) {
         StringJoiner joiner = new StringJoiner("\n");
         for (Input w : inputList) {
             String s = w.getValue() + " " + w.getWordCount();
             joiner.add(s);
         }
-        return joiner.toString();
+        return joiner;
     }
 
-    private Map<String, Integer> getDistinctWord(String[] words) {
-        Map<String, Integer> wordAndCount = new HashMap<>();
+    private Map<String, Integer> calculateFrequentWords(String sentence) {
+        Map<String, Integer> wordsMap = new HashMap<>();
+        String[] words = sentence.split("\\s+");
         for (String word:words) {
-            if (wordAndCount.containsKey(word)){
-                wordAndCount.put(word,wordAndCount.get(word)+1);
+            if (wordsMap.containsKey(word)){
+                wordsMap.put(word,wordsMap.get(word)+1);
             } else {
-                wordAndCount.put(word,1);
+                wordsMap.put(word,1);
             }
         }
-        return wordAndCount;
-    }
-
-    private Map<String, List<Input>> getListMap(List<Input> inputList) {
-        Map<String, List<Input>> map = new HashMap<>();
-        for (Input input : inputList) {
-            if (!map.containsKey(input.getValue())) {
-                ArrayList arr = new ArrayList<>();
-                arr.add(input);
-                map.put(input.getValue(), arr);
-            } else {
-                map.get(input.getValue()).add(input);
-            }
-        }
-        return map;
+        return wordsMap;
     }
 }
