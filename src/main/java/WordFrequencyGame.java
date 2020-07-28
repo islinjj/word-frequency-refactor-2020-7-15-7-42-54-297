@@ -1,8 +1,5 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class WordFrequencyGame {
     public String getResult(String sentence) {
@@ -40,15 +37,7 @@ public class WordFrequencyGame {
     }
 
     private Map<String, Integer> calculateFrequentWords(String sentence) {
-        Map<String, Integer> wordsMap = new HashMap<>();
-        String[] words = sentence.split("\\s+");
-        for (String word:words) {
-            if (wordsMap.containsKey(word)){
-                wordsMap.put(word,wordsMap.get(word)+1);
-            } else {
-                wordsMap.put(word,1);
-            }
-        }
-        return wordsMap;
+        return Arrays.stream(sentence.split("\\s+"))
+                .collect(Collectors.toMap(num -> num,num -> 1, Integer::sum));
     }
 }
