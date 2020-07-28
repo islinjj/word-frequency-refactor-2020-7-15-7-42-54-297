@@ -7,8 +7,6 @@ import java.util.StringJoiner;
 public class WordFrequencyGame {
     public String getResult(String sentence) {
 
-        List<Input> inputList = new ArrayList<>();
-
         Map<String, Integer> wordMap = calculateFrequentWords(sentence);
 
         List<Input> list = new ArrayList<>();
@@ -16,11 +14,10 @@ public class WordFrequencyGame {
             Input input = new Input(entry.getKey(), entry.getValue());
             list.add(input);
         }
-        inputList = list;
 
-        inputList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
+        list.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
 
-        StringJoiner joiner = formatSentence(inputList);
+        StringJoiner joiner = formatSentence(list);
         return joiner.toString();
     }
 
