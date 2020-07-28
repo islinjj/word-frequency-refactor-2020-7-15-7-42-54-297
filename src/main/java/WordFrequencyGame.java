@@ -11,10 +11,14 @@ public class WordFrequencyGame {
 
         List<Input> list = getWordCounts(wordMap);
 
-        list.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
+        sort(list);
 
         StringJoiner joiner = formatSentence(list);
         return joiner.toString();
+    }
+
+    private void sort(List<Input> list) {
+        list.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
     }
 
     private List<Input> getWordCounts(Map<String, Integer> wordMap) {
